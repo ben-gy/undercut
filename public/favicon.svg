@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="12" fill="#0d1014"/>
+  <!-- tyre -->
+  <circle cx="32" cy="34" r="20" fill="none" stroke="#33393f" stroke-width="8"/>
+  <circle cx="32" cy="34" r="20" fill="none" stroke="#828d9b" stroke-width="1.5"/>
+  <!-- stopwatch stem -->
+  <rect x="28" y="6" width="8" height="6" rx="2" fill="#c6d0dc"/>
+  <!-- clock hand pointing to the pit window -->
+  <line x1="32" y1="34" x2="44" y2="24" stroke="#4bc6e8" stroke-width="3" stroke-linecap="round"/>
+  <!-- amber hub -->
+  <circle cx="32" cy="34" r="4.5" fill="#f4a024"/>
+</svg>
