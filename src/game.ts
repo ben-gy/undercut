@@ -228,19 +228,29 @@ export class Game {
   /** Live position at the current lap — read off the same sort the tower uses, so
    *  the HUD and the timing tower can never disagree. */
   position(): number {
-    if (this.lap === 0) return Math.ceil(this.mode.grid / 2);
     return this.standings().find((r) => r.isSelf)?.position ?? 1;
   }
 
-  /** The whole field ordered by current cumulative time, for the timing tower. */
+  /** The whole field ordered by current cumulative time, for the timing tower.
+   *  Before the first lap (the grid, during the countdown) every car reads cum 0
+   *  and its STARTING tyre, so the tower shows a level grid rather than a phantom
+   *  90-second lead over cars whose first lap is already simulated. */
   standings(): StandRow[] {
-    const idx = this.lap === 0 ? 0 : this.lap - 1;
+    const started = this.lap > 0;
     const rows: StandRow[] = this.field.map((c) => {
-      const r = c.result.laps[idx];
-      return { slot: c.slot, name: c.name, isSelf: false, cum: r ? r.cumTime : 0, compound: r ? r.compound : c.result.laps[0].compound, position: 0 };
+      const r = started ? c.result.laps[this.lap - 1] : null;
+      return {
+        slot: c.slot,
+        name: c.name,
+        isSelf: false,
+        cum: r ? r.cumTime : 0,
+        compound: r ? r.compound : c.result.laps[0].compound,
+        position: 0,
+      };
     });
     rows.push({ slot: 0, name: SELF_NAME, isSelf: true, cum: this.cum, compound: this.compound, position: 0 });
-    rows.sort((a, b) => a.cum - b.cum);
+    // A stable slot tiebreak keeps the grid order deterministic while tied at 0.
+    rows.sort((a, b) => a.cum - b.cum || a.slot - b.slot);
     rows.forEach((r, i) => (r.position = i + 1));
     return rows;
   }
