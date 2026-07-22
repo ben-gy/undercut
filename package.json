@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Race strategy with no driving — call the pit windows, read the weather, beat the field on a decision.",
+  "license": "AGPL-3.0-or-later",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

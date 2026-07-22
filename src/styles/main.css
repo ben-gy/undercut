@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2026 Ben Richardson — https://benrichardson.dev
+ * Additional terms under AGPL-3.0 section 7(b) apply; see ADDITIONAL-TERMS.md.
+ */
 /* Undercut — a dark broadcast-timing dashboard. mobile.css (imported first in
    main.ts) handles the viewport hardening, --vh, tap-highlight kill and the
    body.playing footer hide; this file themes everything and lays it out. */
