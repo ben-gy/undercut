@@ -34,7 +34,6 @@ import { RaceEnv, COMPOUNDS, COMPOUND_LETTER, COMPOUND_NAME, type Compound } fro
 import { createRace, resultOf, type Race, type Standing } from './race';
 import { createPlay, type PlayView } from './play';
 import { el } from './dom';
-import { mountFeedback, openFeedback } from './feedback';
 import { mountShell, renderAbout, renderHelp, renderMenu, renderResults, type ResultEntry } from './ui';
 
 const SLUG = 'undercut';
@@ -436,7 +435,7 @@ function showResults(): void {
     onMenu: showMenu,
     onShare: () => void shareRun(g, summary),
     onForceStart: () => rounds?.go(),
-    onFeedback: (from) => openFeedback({ returnFocusTo: from }),
+    onFeedback: (from) => (window as any).feedback?.open({ returnFocusTo: from }),
   });
 
   if (!resultsTimer && multiplayer) {
@@ -471,7 +470,6 @@ async function shareRun(g: Game, summary: Summary): Promise<void> {
 // ── boot ──────────────────────────────────────────────────────────────────────
 async function boot(): Promise<void> {
   hardenViewport();
-  mountFeedback({ build: SLUG });
 
   try {
     setTurnConfig(await getTurnConfig());
